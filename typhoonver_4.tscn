@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://sghc7cd4j3sa"]
+[gd_scene load_steps=78 format=3 uid="uid://sghc7cd4j3sa"]
 
 [ext_resource type="Script" path="res://animationplayer.gd" id="2_8muxs"]
 [ext_resource type="Script" path="res://cameracontrol.gd" id="3_7hcj2"]
@@ -1917,8 +1917,23 @@ _data = {
 "periskopsupportdeploy": SubResource("Animation_wwee1")
 }
 
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_n6ak3"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qq4u5"]
+animation = &"PropellerR"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5x2ac"]
+animation = &"PropelerL"
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_mdpxv"]
-graph_offset = Vector2(-123.845, -32.5778)
+graph_offset = Vector2(-555.24, 62.5998)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_n6ak3")
+nodes/Add2/position = Vector2(80, 160)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_5x2ac")
+nodes/Animation/position = Vector2(-80, 100)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_qq4u5")
+"nodes/Animation 2/position" = Vector2(-80, 280)
+node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
 
 [node name="typhoonver4" type="RigidBody3D"]
 mass = 480.0
@@ -1930,32 +1945,32 @@ angular_damp = 0.5
 script = ExtResource("2_8muxs")
 
 [node name="PropellerL" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.766044, 0.642788, 0, -0.642788, -0.766044, 0, 0, 0, 1, -5.97883, -8.82257, 54.3307)
+transform = Transform3D(0.173649, -0.984807, 0, 0.984807, 0.173649, 0, 0, 0, 1, -5.97883, -8.82257, 54.3307)
 mesh = SubResource("ArrayMesh_fes10")
 skeleton = NodePath("")
 
 [node name="Antenasupport" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0190601, 19.0062, 50.0341)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0381202, 38.0124, 100.068)
 mesh = SubResource("ArrayMesh_mvhj6")
 skeleton = NodePath("")
 
 [node name="Periskop" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.843882, 23.7567, 55.4291)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68776, 47.5134, 110.858)
 mesh = SubResource("ArrayMesh_20mp8")
 skeleton = NodePath("")
 
 [node name="beacon" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0807896, 21.2847, 56.7875)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.161579, 42.5694, 113.575)
 mesh = SubResource("ArrayMesh_fty5o")
 skeleton = NodePath("")
 
 [node name="radar" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0807896, 19.8803, 57.8989)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.161579, 39.7606, 115.798)
 mesh = SubResource("ArrayMesh_mxdmt")
 skeleton = NodePath("")
 
 [node name="disniksupport" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0807896, 20.451, 59.4322)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.161579, 40.902, 118.864)
 mesh = SubResource("ArrayMesh_mkff4")
 skeleton = NodePath("")
 
@@ -2023,7 +2038,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_4o5kh")
 
 [node name="PropellerR" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.766044, 0.642788, 0, -0.642788, -0.766044, 0, 0, 0, 1, 5.94207, -8.82257, 54.3307)
+transform = Transform3D(0.173649, -0.984807, 0, 0.984807, 0.173649, 0, 0, 0, 1, 5.94207, -8.82257, 54.3307)
 mesh = SubResource("ArrayMesh_6tb4i")
 skeleton = NodePath("")
 
@@ -2035,19 +2050,19 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_bk6q0")
 
 [node name="antenavrh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0212863, 21.3027, 50.0338)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0425726, 42.6054, 100.068)
 mesh = SubResource("ArrayMesh_neqj7")
 skeleton = NodePath("")
 
 [node name="disnik" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08079, 6.32158, 11.2742)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16158, 12.6432, 22.5484)
 mesh = SubResource("ArrayMesh_rwxpn")
 skeleton = NodePath("")
 blend_shapes/deploy = 0.0
 blend_shapes/disanje = 0.0
 
 [node name="Periskopsupport" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.838062, 20.5202, 55.4392)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67612, 41.0404, 110.878)
 mesh = SubResource("ArrayMesh_l6xv7")
 skeleton = NodePath("")
 
@@ -2068,3 +2083,4 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeBlendTree_mdpxv")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Add2/add_amount = 1.0

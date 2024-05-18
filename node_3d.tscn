@@ -10,7 +10,6 @@
 [node name="StaticBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 66, 34.292)
 mass = 50.0
-freeze = true
 
 [node name="smooth4" parent="StaticBody3D" instance=ExtResource("2_p5tmy")]
 
@@ -40,5 +39,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.615, 93.7395, 31.1823)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 16, 59)
 
 [node name="Camera3D" type="Camera3D" parent="typhoonver4"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -2, 218, -59)
-current = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -2, 764, -59)

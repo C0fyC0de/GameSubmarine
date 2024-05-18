@@ -6,12 +6,36 @@ extends Node
 @onready var StartOffset = node_3d.transform.origin - sub.transform.origin
 @onready var add_value = 1
 @onready var torqueforce = 70000
-@onready var speedpropeler = 10000
+@onready var speedpropeler = 7000
+@onready var torqueProtuSila = 150000
 
 func balans():
-	#print(sub.rotation)
-	print(sub.linear_velocity)
+	if(sub.rotation.z > 0.01):
+		sub.apply_torque(sub.transform.basis * Vector3(0, 0, -sub.rotation.z*10000))
+	if(sub.rotation.z < -0.01):
+		sub.apply_torque(sub.transform.basis * Vector3(0, 0, -sub.rotation.z*10000))
+	if(sub.rotation.x > 0.01):
+		sub.apply_torque(sub.transform.basis * Vector3(-sub.rotation.x*torqueProtuSila, 0, 0))
+	if(sub.rotation.x < -0.01):
+		sub.apply_torque(sub.transform.basis * Vector3(-sub.rotation.x*torqueProtuSila, 0, 0))
+	
+	
+	print(sub.rotation.x)
+	#print(sub.linear_velocity)
 	#print(sub.angular_velocity)
+	#lokalna_brzina()
+	pass
+
+func lokalna_brzina():
+	#lokalna brzina
+	var b = sub.transform.basis
+	var v_len = sub.linear_velocity.length()
+	var v_nor = sub.linear_velocity.normalized()
+	var vel : Vector3
+	vel.x = b.x.dot(v_nor) * v_len
+	vel.y = b.y.dot(v_nor) * v_len
+	vel.z = b.z.dot(v_nor) * v_len
+	print(vel)
 
 func update_tree():
 	anim_tree["parameters/PropellerCtrl/add_amount"] = add_value
@@ -31,21 +55,22 @@ func _physics_process(delta):
 	if(sub.angular_velocity.y > -0.2):
 		if Input.is_key_pressed(KEY_D):
 			sub.apply_torque(sub.transform.basis * Vector3(0, -torqueforce, 0))
+	if(sub.angular_velocity.x < 0.2 and sub.rotation.x <= 0.3):
+		if Input.is_key_pressed(KEY_SHIFT):
+			sub.apply_torque(sub.transform.basis * Vector3(torqueforce, 0, 0))
+	if(sub.angular_velocity.x > -0.2 and sub.rotation.x >= -0.3):
+		if Input.is_key_pressed(KEY_CTRL):
+			sub.apply_torque(sub.transform.basis * Vector3(-torqueforce, 0, 0))
 			
 			
 			
-	if(sub.linear_velocity.z > -10):
+	if(sub.linear_velocity.z > -100):
 		if Input.is_key_pressed(KEY_W):
-			sub.apply_central_force(sub.transform.basis * Vector3(0, 0, -speedpropeler))
-	else:
-		sub.linear_velocity.z = -10
-	if(sub.linear_velocity.z < 5):
+			sub.apply_central_force(sub.transform.basis.z * -speedpropeler)
+			
+	if(sub.linear_velocity.z < 100):
 		if Input.is_key_pressed(KEY_S):
 			sub.apply_central_force(sub.transform.basis * Vector3(0, 0, speedpropeler))
-	else:
-		sub.linear_velocity.z = 5
 		
-		
-#UGASI NAPRIJED NAZAD KAD X VELOCITY IZNAD 20
 		
 	balans()
