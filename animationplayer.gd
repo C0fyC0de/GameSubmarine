@@ -27,7 +27,6 @@ func balans():
 	#print(sub.angular_velocity)
 	#lokalna_brzina()
 	#print(anim_tree.get("parameters/Animation/time"))
-	pass
 
 func lokalna_brzina():
 	#lokalna brzina
@@ -41,8 +40,7 @@ func lokalna_brzina():
 	print(vel)
 
 func update_tree():
-	#anim_tree["parameters/PropellerCtrl/add_amount"] = add_value
-	pass
+	anim_tree["parameters/PropellerCtrl/add_amount"] = add_value
 
 func _ready():
 	update_tree()

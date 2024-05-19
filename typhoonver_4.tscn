@@ -1919,23 +1919,25 @@ _data = {
 "periskopsupportdeploy": SubResource("Animation_wwee1")
 }
 
-[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_7wsbi"]
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5mcjr"]
 animation = &"PropellerR"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_38qmt"]
 animation = &"PropelerL"
 
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_7wsbi"]
+filter_enabled = true
+filters = ["PropellerL", "PropellerR"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1avfb"]
-graph_offset = Vector2(-386, 101)
-nodes/Add2/node = SubResource("AnimationNodeAdd2_7wsbi")
-nodes/Add2/position = Vector2(20, 200)
+graph_offset = Vector2(-373, 102)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_38qmt")
 nodes/Animation/position = Vector2(-195.3, 163)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_5mcjr")
 "nodes/Animation 2/position" = Vector2(-200, 320)
-node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
+nodes/PropellerCtrl/node = SubResource("AnimationNodeAdd2_7wsbi")
+nodes/PropellerCtrl/position = Vector2(40, 140)
+node_connections = [&"PropellerCtrl", 0, &"Animation", &"PropellerCtrl", 1, &"Animation 2", &"output", 0, &"PropellerCtrl"]
 
 [node name="typhoonver4" type="RigidBody3D"]
 mass = 480.0
@@ -1947,7 +1949,7 @@ angular_damp = 0.5
 script = ExtResource("2_8muxs")
 
 [node name="PropellerL" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.380013, 0.924981, 0, -0.924981, 0.380013, 0, 0, 0, 1, -5.97883, -8.82257, 54.3307)
+transform = Transform3D(0.966546, -0.256492, 0, 0.256492, 0.966546, 0, 0, 0, 1, -5.97883, -8.82257, 54.3307)
 mesh = SubResource("ArrayMesh_fes10")
 skeleton = NodePath("")
 
@@ -2040,7 +2042,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_4o5kh")
 
 [node name="PropellerR" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.614603, 0.788836, 0, -0.788836, -0.614603, 0, 0, 0, 1, 5.94207, -8.82257, 54.3307)
+transform = Transform3D(0.96509, -0.261918, 0, 0.261918, 0.96509, 0, 0, 0, 1, 5.94207, -8.82257, 54.3307)
 mesh = SubResource("ArrayMesh_6tb4i")
 skeleton = NodePath("")
 
@@ -2080,10 +2082,6 @@ script = ExtResource("3_7hcj2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 72)
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-deterministic = false
-libraries = {
-"": SubResource("AnimationLibrary_qg5c1")
-}
 tree_root = SubResource("AnimationNodeBlendTree_1avfb")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Add2/add_amount = 1.0
+parameters/PropellerCtrl/add_amount = 1.0
