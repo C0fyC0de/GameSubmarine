@@ -8,7 +8,7 @@
 [node name="Node3D" type="Node3D"]
 
 [node name="StaticBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 66, 34.292)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 68, 34.292)
 mass = 50.0
 
 [node name="smooth4" parent="StaticBody3D" instance=ExtResource("2_p5tmy")]

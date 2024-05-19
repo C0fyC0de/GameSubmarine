@@ -8,6 +8,8 @@ extends Node
 @onready var torqueforce = 70000
 @onready var speedpropeler = 7000
 @onready var torqueProtuSila = 150000
+@onready var animation_player = $AnimationPlayer
+@onready var switch = 0
 
 func balans():
 	if(sub.rotation.z > 0.01):
@@ -20,10 +22,11 @@ func balans():
 		sub.apply_torque(sub.transform.basis * Vector3(-sub.rotation.x*torqueProtuSila, 0, 0))
 	
 	
-	print(sub.rotation.x)
+	#print(sub.rotation.x)
 	#print(sub.linear_velocity)
 	#print(sub.angular_velocity)
 	#lokalna_brzina()
+	#print(anim_tree.get("parameters/Animation/time"))
 	pass
 
 func lokalna_brzina():
@@ -38,14 +41,19 @@ func lokalna_brzina():
 	print(vel)
 
 func update_tree():
-	anim_tree["parameters/PropellerCtrl/add_amount"] = add_value
-	anim_tree.active = true
+	#anim_tree["parameters/PropellerCtrl/add_amount"] = add_value
+	pass
 
-#func _ready():
-	#update_tree()
+func _ready():
+	update_tree()
+	var anim_tree = get_node("/root/Node3D/typhoonver4/AnimationTree")
+	for property in anim_tree.get_property_list():
+		print(property.name)
+
 	
 func _process(delta):
 	node_3d.transform.origin = sub.transform.origin + StartOffset
+	update_tree()
 
 
 func _physics_process(delta):
