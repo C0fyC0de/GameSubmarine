@@ -7,6 +7,7 @@ extends Node
 @onready var add_value = 1
 @onready var torqueforce = 70000
 @onready var speedpropeler = 7000
+@onready var ballastforce = 5000
 @onready var torqueProtuSila = 150000
 @onready var animation_player = $AnimationPlayer
 @onready var switch = 0
@@ -20,7 +21,8 @@ func balans():
 		sub.apply_torque(sub.transform.basis * Vector3(-sub.rotation.x*torqueProtuSila, 0, 0))
 	if(sub.rotation.x < -0.01):
 		sub.apply_torque(sub.transform.basis * Vector3(-sub.rotation.x*torqueProtuSila, 0, 0))
-	
+	if(sub.position.y >= 3):
+		sub.apply_central_force(Vector3(0, -ballastforce*3, 0))
 	
 	#print(sub.rotation.x)
 	#print(sub.linear_velocity)
@@ -61,10 +63,10 @@ func _physics_process(delta):
 	if(sub.angular_velocity.y > -0.2):
 		if Input.is_key_pressed(KEY_D):
 			sub.apply_torque(sub.transform.basis * Vector3(0, -torqueforce, 0))
-	if(sub.angular_velocity.x < 0.2 and sub.rotation.x <= 0.3):
+	if(sub.angular_velocity.x < 0.2 and sub.rotation.x <= 0.3 and sub.position.y < -2):
 		if Input.is_key_pressed(KEY_SHIFT):
 			sub.apply_torque(sub.transform.basis * Vector3(torqueforce, 0, 0))
-	if(sub.angular_velocity.x > -0.2 and sub.rotation.x >= -0.3):
+	if(sub.angular_velocity.x > -0.2 and sub.rotation.x >= -0.3 and sub.position.y < -4):
 		if Input.is_key_pressed(KEY_CTRL):
 			sub.apply_torque(sub.transform.basis * Vector3(-torqueforce, 0, 0))
 			
@@ -76,7 +78,15 @@ func _physics_process(delta):
 			
 	if(sub.linear_velocity.z < 100):
 		if Input.is_key_pressed(KEY_S):
-			sub.apply_central_force(sub.transform.basis * Vector3(0, 0, speedpropeler))
+			sub.apply_central_force(sub.transform.basis.z * speedpropeler)
+	
+	if(sub.linear_velocity.y < 100 and sub.position.y < 3):
+		if Input.is_key_pressed(KEY_SPACE):
+			sub.apply_central_force(Vector3(0, ballastforce, 0))
 		
-		
+	if(sub.linear_velocity.y < 100):
+		if Input.is_key_pressed(KEY_C):
+			sub.apply_central_force(Vector3(0, -ballastforce, 0))
+			
+			
 	balans()

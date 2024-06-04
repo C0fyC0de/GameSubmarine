@@ -1,42 +1,86 @@
-[gd_scene load_steps=4 format=3 uid="uid://wpd63oknycti"]
+[gd_scene load_steps=13 format=3 uid="uid://wpd63oknycti"]
 
+[ext_resource type="PackedScene" uid="uid://ignpdv10rx52" path="res://water shader/addons/boujie_water_shader/prefabs/deep_ocean.tscn" id="1_a01qt"]
+[ext_resource type="PackedScene" uid="uid://qycb16bgy461" path="res://torpedoPrefab.tscn" id="1_hnutd"]
+[ext_resource type="Script" path="res://explosionHandler.gd" id="1_liidq"]
+[ext_resource type="Shader" path="res://water shader/example/boujie_water_shader/DropWithDistance.gdshader" id="2_6q2g8"]
 [ext_resource type="PackedScene" uid="uid://sghc7cd4j3sa" path="res://typhoonver_4.tscn" id="2_hxxqy"]
-[ext_resource type="PackedScene" uid="uid://dlwi34a613qta" path="res://smooth.glb" id="2_p5tmy"]
+[ext_resource type="Texture2D" uid="uid://dwsniss71hd03" path="res://water shader/example/boujie_water_shader/Sand.png" id="3_g356j"]
+[ext_resource type="Script" path="res://water shader/example/boujie_water_shader/ocean_floor.gd" id="4_fs0qv"]
+[ext_resource type="Environment" uid="uid://kw5c7bat248e" path="res://water shader/example/boujie_water_shader/MapEnvironment.tres" id="7_xtbpa"]
+[ext_resource type="Script" path="res://water shader/example/boujie_water_shader/underwater_fog.gd" id="8_flfcg"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_7rsug"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_cn7sk"]
+subdivide_width = 16
+subdivide_depth = 16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0k4ft"]
+render_priority = 0
+shader = ExtResource("2_6q2g8")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = null
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.1, 0.1, 0.1)
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = null
+shader_parameter/drop_far = 2000.0
+shader_parameter/texture_albedo = ExtResource("3_g356j")
+
+[sub_resource type="FogMaterial" id="FogMaterial_2lc5y"]
+density = 0.3558
+albedo = Color(0.301961, 0.603922, 1, 1)
+height_falloff = 1e+06
+edge_fade = 0.926824
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_liidq")
 
-[node name="StaticBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 68, 34.292)
-mass = 50.0
+[node name="torpedo" parent="." instance=ExtResource("1_hnutd")]
+transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, 139, -6, -14)
 
-[node name="smooth4" parent="StaticBody3D" instance=ExtResource("2_p5tmy")]
+[node name="DeepOcean" parent="." instance=ExtResource("1_a01qt")]
+levels_of_detail = 3
+unit_size = 8.0
+far_edge = 5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(10.11, 0, 0, 0, 10.11, 0, 0, 0, 10.11, 0, 0, 0)
-shape = SubResource("SphereShape3D_7rsug")
+[node name="WaterMaterialDesigner" parent="DeepOcean" index="1"]
+wave_fade_far = 1440
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -114, 8, 112)
-
-[node name="smooth" parent="." instance=ExtResource("2_p5tmy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78, -8, -54)
-
-[node name="smooth2" parent="." instance=ExtResource("2_p5tmy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 40, -54)
-
-[node name="smooth5" parent="." instance=ExtResource("2_p5tmy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 40, 125.344)
-
-[node name="smooth3" parent="." instance=ExtResource("2_p5tmy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.615, -114, 31.1823)
-
-[node name="smooth6" parent="." instance=ExtResource("2_p5tmy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.615, 93.7395, 31.1823)
+[node name="OceanFloor" type="MeshInstance3D" parent="DeepOcean"]
+transform = Transform3D(8000, 0, 0, 0, 1, 0, 0, 0, 8000, 0, -350, 0)
+mesh = SubResource("PlaneMesh_cn7sk")
+skeleton = NodePath("../../Other_Designers")
+surface_material_override/0 = SubResource("ShaderMaterial_0k4ft")
+script = ExtResource("4_fs0qv")
 
 [node name="typhoonver4" parent="." instance=ExtResource("2_hxxqy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 16, 59)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
 [node name="Camera3D" type="Camera3D" parent="typhoonver4"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -2, 764, -59)
+
+[node name="Environment_Stuff" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment_Stuff"]
+transform = Transform3D(0.877037, -0.278375, 0.391552, 0, 0.815017, 0.579437, -0.480422, -0.508188, 0.7148, 0, 23.7697, 0)
+light_energy = 1.2
+shadow_enabled = true
+directional_shadow_max_distance = 2000.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment_Stuff"]
+environment = ExtResource("7_xtbpa")
+
+[node name="UnderwaterFog" type="FogVolume" parent="Environment_Stuff"]
+shape = 4
+material = SubResource("FogMaterial_2lc5y")
+script = ExtResource("8_flfcg")
+visible_height_offset = 5.0
+
+[connection signal="kolizija" from="torpedo" to="." method="_on_torpedo_kolizija"]
+
+[editable path="DeepOcean"]

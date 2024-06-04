@@ -1930,7 +1930,6 @@ filter_enabled = true
 filters = ["PropellerL", "PropellerR"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1avfb"]
-graph_offset = Vector2(-373, 102)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_38qmt")
 nodes/Animation/position = Vector2(-195.3, 163)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_5mcjr")
@@ -1949,7 +1948,7 @@ angular_damp = 0.5
 script = ExtResource("2_8muxs")
 
 [node name="PropellerL" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.966546, -0.256492, 0, 0.256492, 0.966546, 0, 0, 0, 1, -5.97883, -8.82257, 54.3307)
+transform = Transform3D(-0.927834, -0.372992, 0, 0.372992, -0.927834, 0, 0, 0, 1, -5.97883, -8.82257, 54.3307)
 mesh = SubResource("ArrayMesh_fes10")
 skeleton = NodePath("")
 
@@ -2042,7 +2041,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_4o5kh")
 
 [node name="PropellerR" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.96509, -0.261918, 0, 0.261918, 0.96509, 0, 0, 0, 1, 5.94207, -8.82257, 54.3307)
+transform = Transform3D(-0.927897, -0.372836, 0, 0.372836, -0.927897, 0, 0, 0, 1, 5.94207, -8.82257, 54.3307)
 mesh = SubResource("ArrayMesh_6tb4i")
 skeleton = NodePath("")
 

@@ -1,0 +1,139 @@
+[gd_scene load_steps=15 format=3 uid="uid://mbs44iso0r11"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sq42u"]
+transparency = 1
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(1, 0.490196, 0, 1)
+emission_energy_multiplier = 2.0
+rim_tint = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_1oacq"]
+material = SubResource("StandardMaterial3D_sq42u")
+radius = 5.0
+height = 10.0
+radial_segments = 8
+rings = 4
+
+[sub_resource type="Curve" id="Curve_hk8vf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.286517, 1), 0.0434674, 0.0434674, 0, 0, Vector2(0.58427, 0.395604), 2.81181, 2.81181, 0, 0, Vector2(0.764045, 0.164835), 2.48951, 2.48951, 0, 0, Vector2(0.910112, 0.131868), 3.50029, 3.50029, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 6
+
+[sub_resource type="Gradient" id="Gradient_6exot"]
+offsets = PackedFloat32Array(0, 0.473333, 0.533333, 1)
+colors = PackedColorArray(1, 0.490196, 0, 1, 1, 0.490196, 0, 1, 0.615686, 0.615686, 0.615686, 0.54902, 0.482353, 0.482353, 0.482353, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rrl1s"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.286275, 0.278431, 0.168627, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ck0df"]
+material = SubResource("StandardMaterial3D_rrl1s")
+radius = 5.0
+height = 10.0
+radial_segments = 8
+rings = 4
+
+[sub_resource type="Curve" id="Curve_1kxjr"]
+_data = [Vector2(0.0224719, 0.747253), 0.0, 0.0, 0, 0, Vector2(0.348315, 1), 0.0, 0.0, 0, 0, Vector2(0.617978, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1niqc"]
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(1, 0.392157, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8s112"]
+material = SubResource("StandardMaterial3D_1niqc")
+top_radius = 0.13
+bottom_radius = 0.0
+height = 4.0
+radial_segments = 4
+rings = 1
+
+[sub_resource type="Curve" id="Curve_2arxm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.657303, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_vjq54"]
+offsets = PackedFloat32Array(0, 0.56, 0.68)
+colors = PackedColorArray(1, 0.392157, 0, 1, 1, 0.392157, 0, 1, 0.118581, 0.118581, 0.118581, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qlfc6"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_nlifp"]
+material = SubResource("StandardMaterial3D_qlfc6")
+radius = 1.65
+height = 3.3
+radial_segments = 10
+rings = 5
+
+[sub_resource type="Curve" id="Curve_bbeu5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="PodvodnaExplozija" type="Node3D"]
+
+[node name="flash" type="CPUParticles3D" parent="."]
+cast_shadow = 0
+emitting = false
+amount = 1
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 30
+mesh = SubResource("SphereMesh_1oacq")
+gravity = Vector3(0, 0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_hk8vf")
+color_ramp = SubResource("Gradient_6exot")
+
+[node name="dim" type="CPUParticles3D" parent="."]
+transparency = 0.6
+cast_shadow = 0
+emitting = false
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("SphereMesh_ck0df")
+direction = Vector3(0, 1, 0)
+gravity = Vector3(0, 5, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+scale_amount_curve = SubResource("Curve_1kxjr")
+
+[node name="debris" type="CPUParticles3D" parent="."]
+cast_shadow = 0
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("CylinderMesh_8s112")
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+scale_amount_curve = SubResource("Curve_2arxm")
+color_ramp = SubResource("Gradient_vjq54")
+
+[node name="bubling and dissapear" type="CPUParticles3D" parent="."]
+transparency = 0.77
+cast_shadow = 0
+emitting = false
+amount = 6
+lifetime = 5.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("SphereMesh_nlifp")
+spread = 180.0
+gravity = Vector3(0, 5, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+damping_min = 1.0
+damping_max = 1.0
+scale_amount_curve = SubResource("Curve_bbeu5")
+color = Color(0.355928, 0.611874, 0.814085, 1)
