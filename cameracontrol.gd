@@ -16,17 +16,14 @@ func _ready():
 	#orbitiranje
 func _input(event):
 	if event is InputEventMouseMotion:
-		# Get mouse movement
+
 		var mouse_delta = event.relative
 
-		# Create rotation quaternions for the x and y axis
 		var x_rot = Quaternion(Vector3(1, 0, 0), -mouse_delta.y * brzina)
 		var y_rot = Quaternion(Vector3(0, 1, 0), -mouse_delta.x * brzina)
 
-		# Apply the rotations to the current rotation
 		var new_rot = self.transform.basis.get_rotation_quaternion() * x_rot * y_rot
 
-		# Set the new rotation
 		self.transform.basis = Basis(new_rot)
 		node.rotation.z = 0
 		if(node.rotation.x < -1.4):

@@ -14,15 +14,6 @@ extends Node
 @onready var torpedoScene = preload("res://torpedoPrefab.tscn").instantiate()
 signal spawningTorpedo(scene)
 
-func is_scene_in_tree():
-	var root = get_tree().get_root()
-	for node in root.get_children():
-		if node.filename == torpedoScene.resource_path:
-			return true
-		else:
-			return false
-
-
 
 func balans():
 	if(sub.rotation.z > 0.01):
@@ -65,7 +56,7 @@ func _ready():
 
 	
 func _process(delta):
-	node_3d.transform.origin = sub.transform.origin + StartOffset
+	node_3d.transform.origin = sub.transform.origin + StartOffset #kamera
 	update_tree()
 
 
@@ -104,4 +95,3 @@ func _physics_process(delta):
 	if Input.is_key_pressed(KEY_X) and !get_node_or_null("../torpedo"):
 		emit_signal("spawningTorpedo", torpedoScene)
 	balans()
-	
