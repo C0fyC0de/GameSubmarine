@@ -11,6 +11,18 @@ extends Node
 @onready var torqueProtuSila = 150000
 @onready var animation_player = $AnimationPlayer
 @onready var switch = 0
+@onready var torpedoScene = preload("res://torpedoPrefab.tscn").instantiate()
+signal spawningTorpedo(scene)
+
+func is_scene_in_tree():
+	var root = get_tree().get_root()
+	for node in root.get_children():
+		if node.filename == torpedoScene.resource_path:
+			return true
+		else:
+			return false
+
+
 
 func balans():
 	if(sub.rotation.z > 0.01):
@@ -50,6 +62,7 @@ func _ready():
 	for property in anim_tree.get_property_list():
 		print(property.name)
 
+
 	
 func _process(delta):
 	node_3d.transform.origin = sub.transform.origin + StartOffset
@@ -87,6 +100,8 @@ func _physics_process(delta):
 	if(sub.linear_velocity.y < 100):
 		if Input.is_key_pressed(KEY_C):
 			sub.apply_central_force(Vector3(0, -ballastforce, 0))
-			
-			
+	
+	if Input.is_key_pressed(KEY_X) and !get_node_or_null("../torpedo"):
+		emit_signal("spawningTorpedo", torpedoScene)
 	balans()
+	

@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://wpd63oknycti"]
+[gd_scene load_steps=15 format=3 uid="uid://wpd63oknycti"]
 
 [ext_resource type="PackedScene" uid="uid://ignpdv10rx52" path="res://water shader/addons/boujie_water_shader/prefabs/deep_ocean.tscn" id="1_a01qt"]
-[ext_resource type="PackedScene" uid="uid://qycb16bgy461" path="res://torpedoPrefab.tscn" id="1_hnutd"]
 [ext_resource type="Script" path="res://explosionHandler.gd" id="1_liidq"]
 [ext_resource type="Shader" path="res://water shader/example/boujie_water_shader/DropWithDistance.gdshader" id="2_6q2g8"]
 [ext_resource type="PackedScene" uid="uid://sghc7cd4j3sa" path="res://typhoonver_4.tscn" id="2_hxxqy"]
@@ -9,6 +8,8 @@
 [ext_resource type="Script" path="res://water shader/example/boujie_water_shader/ocean_floor.gd" id="4_fs0qv"]
 [ext_resource type="Environment" uid="uid://kw5c7bat248e" path="res://water shader/example/boujie_water_shader/MapEnvironment.tres" id="7_xtbpa"]
 [ext_resource type="Script" path="res://water shader/example/boujie_water_shader/underwater_fog.gd" id="8_flfcg"]
+[ext_resource type="Script" path="res://floorscript.gd" id="10_17llm"]
+[ext_resource type="PackedScene" uid="uid://bkofte07e6w2j" path="res://podvodna_mina.tscn" id="11_tkbcp"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_cn7sk"]
 subdivide_width = 16
@@ -37,11 +38,10 @@ albedo = Color(0.301961, 0.603922, 1, 1)
 height_falloff = 1e+06
 edge_fade = 0.926824
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qj82y"]
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_liidq")
-
-[node name="torpedo" parent="." instance=ExtResource("1_hnutd")]
-transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, 139, -6, -14)
 
 [node name="DeepOcean" parent="." instance=ExtResource("1_a01qt")]
 levels_of_detail = 3
@@ -81,6 +81,66 @@ material = SubResource("FogMaterial_2lc5y")
 script = ExtResource("8_flfcg")
 visible_height_offset = 5.0
 
-[connection signal="kolizija" from="torpedo" to="." method="_on_torpedo_kolizija"]
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StaticBody3D" type="RigidBody3D" parent="."]
+mass = 2000.0
+gravity_scale = 0.0
+script = ExtResource("10_17llm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(161.895, 0, 0, 0, 161.895, 0, 0, 0, 161.895, 0, -431, 0)
+shape = SubResource("BoxShape3D_qj82y")
+
+[node name="podvodna_mina5" parent="." instance=ExtResource("11_tkbcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1298, -741, -1083)
+collision_layer = 3
+collision_mask = 3
+
+[node name="podvodna_mina7" parent="." instance=ExtResource("11_tkbcp")]
+transform = Transform3D(9.6721, 0, 0, 0, 9.6721, 0, 0, 0, 9.6721, -552.77, -211.11, -1703.09)
+collision_layer = 3
+collision_mask = 3
+
+[node name="podvodna_mina6" parent="." instance=ExtResource("11_tkbcp")]
+transform = Transform3D(3.11, 0, 0, 0, 3.11, 0, 0, 0, 3.11, -7, -1, -219)
+collision_layer = 3
+collision_mask = 3
+
+[node name="podvodna_mina4" parent="." instance=ExtResource("11_tkbcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 359, -496, -1953)
+collision_layer = 3
+collision_mask = 3
+
+[node name="podvodna_mina3" parent="." instance=ExtResource("11_tkbcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2237, -986, -213)
+collision_layer = 3
+collision_mask = 3
+
+[node name="podvodna_mina2" parent="." instance=ExtResource("11_tkbcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -580, -251, -1028)
+collision_layer = 3
+collision_mask = 3
+
+[node name="podvodna_mina8" parent="." instance=ExtResource("11_tkbcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, -378, -206)
+collision_layer = 3
+collision_mask = 3
+
+[node name="podvodna_mina" parent="." instance=ExtResource("11_tkbcp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -290, -265, -103)
+collision_layer = 3
+collision_mask = 3
+
+[connection signal="spawningTorpedo" from="typhoonver4" to="." method="_on_typhoonver_4_spawning_torpedo"]
+[connection signal="explo" from="podvodna_mina5" to="." method="_explodiraj"]
+[connection signal="explo" from="podvodna_mina7" to="." method="_explodiraj"]
+[connection signal="explo" from="podvodna_mina6" to="." method="_explodiraj"]
+[connection signal="explo" from="podvodna_mina4" to="." method="_explodiraj"]
+[connection signal="explo" from="podvodna_mina3" to="." method="_explodiraj"]
+[connection signal="explo" from="podvodna_mina2" to="." method="_explodiraj"]
+[connection signal="explo" from="podvodna_mina8" to="." method="_explodiraj"]
+[connection signal="explo" from="podvodna_mina" to="." method="_explodiraj"]
 
 [editable path="DeepOcean"]

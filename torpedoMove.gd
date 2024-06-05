@@ -8,9 +8,8 @@ signal kolizija(value)
 func _ready():
 	animation_player.play("propellerTorpedoAnim")
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 	
 	
 func _physics_process(delta):
@@ -18,8 +17,9 @@ func _physics_process(delta):
 
 
 func _on_body_entered(body):
-	if flag==true:
-		emit_signal("kolizija", torpedo.position)
-		flag = false
+	print("kolizija")
+	emit_signal("kolizija", torpedo.position, torpedo)
 	pass # Replace with function body.
+	
+	
 
